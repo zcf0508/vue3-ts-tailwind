@@ -3,7 +3,7 @@ module.exports = {
         browser: true,
         es2021: true,
     },
-    extends: ['plugin:vue/vue3-essential', 'airbnb-base'],
+    extends: ['plugin:vue/vue3-essential'],
     parserOptions: {
         ecmaVersion: 12,
         parser: '@typescript-eslint/parser',
@@ -21,6 +21,5 @@ module.exports = {
             },
         ],
         'comma-dangle': ['error', 'always-multiline'],
-        'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     },
 };
