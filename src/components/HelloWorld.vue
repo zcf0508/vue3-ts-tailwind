@@ -21,6 +21,10 @@
     </p>
 
     <button type="button" @click="plus">count is: {{ count }}</button>
+    <p class="my-2">
+        <input class="pl-2 border border-gray-100 appearance-none focus:outline-none" type="number" v-model="number" />
+        <button class="ml-2 px-2 bg-green-500 text-white rounded" @click="add">ADD</button>
+    </p>
     <p>
         Edit
         <code>components/HelloWorld.vue</code> to test hot module replacement.
@@ -28,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, reactive, toRefs } from 'vue';
 import { useStore } from '@/store';
 
 export default defineComponent({
@@ -41,12 +45,20 @@ export default defineComponent({
     },
     setup: () => {
         const store = useStore();
-        const count = computed(() => store.state.count);
+        const data = reactive({
+            number: 0,
+        });
+        const count = computed(() => store.getters['count/count']);
 
         function plus() {
-            store.commit('increment');
+            store.dispatch('count/increment');
         }
-        return { count, plus };
+
+        function add() {
+            store.dispatch('count/add', data.number);
+        }
+
+        return { ...toRefs(data), count, plus, add };
     },
 });
 </script>
